@@ -18,5 +18,8 @@ Make and download an API token (kaggle.json) on your kaggle account page
 Make a ~/.kaggle folder and move the kaggle.json file inside the folder
 
 ## Run preprocess_data.py
-...to be continued
+```python preprocess_data.py```
 This downloads and prepares the [ASL alphabet dataset](https://www.kaggle.com/datasets/grassknoted/asl-alphabet/data) for use with YoloV11
+
+# 4. Train with YOLOv11
+Armando either do python or CLI for this, from https://docs.ultralytics.com/tasks/classify/
