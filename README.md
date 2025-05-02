@@ -1,5 +1,6 @@
 # ASL_Classification
 Final Project for CS231N: Neural Networks for Computer Vision
+
 Made with Python 3.8.18
 
 # 1. Clone the repo
