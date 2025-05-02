@@ -12,7 +12,7 @@ print("Path to original dataset files:", path)
 
 # Define input and output paths
 train_dir = Path(path) / "asl_alphabet_train" / "asl_alphabet_train"
-output_dir = Path("asl_classification_dataset")
+output_dir = Path("alphabet_dataset")
 train_output = output_dir / "train"
 val_output = output_dir / "val"
 
