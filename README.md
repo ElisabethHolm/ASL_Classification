@@ -49,17 +49,22 @@ Run the following command to download the base model
 wget -q https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task
 ```
 
-## 3. Download the asl alphabet dataset and extract keypoints
+## 3. Download the asl alphabet dataset
+```
+python download_dataset.py
+```
+Note: this may take a second
+## 4. Extract keypoints from the dataset
 ```
 python extract_keypoints.py
 ```
-
-# 4. Train a PyTorch model on keypoints (can skip if using existing weights)
+Note: this takes a bit, maybe go watch a youtube video and come back
+# 5. Train a PyTorch model on keypoints (can skip if using existing weights)
 ```
 python train.py
 ```
 
-# 5. Run real-time inference
+# 6. Run real-time inference
 ```
 python realtime_test.py
 ```
