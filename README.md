@@ -5,10 +5,14 @@ Made with Python 3.8.18
 # General Set-Up
 
 ## 1. Clone the repo
-```git clone https://github.com/ElisabethHolm/ASL_Classification.git```
+```
+git clone https://github.com/ElisabethHolm/ASL_Classification.git
+```
 
 ## 2. Install Requirements
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
 ## 3. Download Dataset
 ### Get a kaggle API token
@@ -23,7 +27,9 @@ Make a ~/.kaggle folder and move the kaggle.json file inside the folder
 _________
 # YOLO Classifier
 ## 1. Run preprocess_data.py
-```python preprocess_data.py```
+```
+python preprocess_data.py
+```
 
 This downloads and prepares the [ASL alphabet dataset](https://www.kaggle.com/datasets/grassknoted/asl-alphabet/data) for use with YoloV11
 
@@ -33,17 +39,27 @@ Armando TODO, from https://docs.ultralytics.com/tasks/classify/
 ___________
 # MediaPipe Classifier
 ## 1. Enter the mediapipe folder
-```cd mediapipe```
+```
+cd mediapipe
+```
 
 ## 2. Download base model
 Run the following command to download the base model
-```wget -q https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task```
+```
+wget -q https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task
+```
 
 ## 3. Download the dataset and extract keypoints
-```python extract_keypoints.py```
+```
+python extract_keypoints.py
+```
 
 # 4. Train a PyTorch model on keypoints
-```python train.py```
+```
+python train.py
+```
 
 # 5. Run real-time inference
-```python realtime_test.py```
+```
+python realtime_test.py
+```
