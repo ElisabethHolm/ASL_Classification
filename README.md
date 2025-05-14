@@ -26,3 +26,21 @@ This downloads and prepares the [ASL alphabet dataset](https://www.kaggle.com/da
 
 # 4. Train with YOLOv11
 Armando either do python or CLI for this, from https://docs.ultralytics.com/tasks/classify/
+
+___________
+# MediaPipe
+# 1. Enter the mediapipe folder
+```cd mediapipe```
+
+# 2. Download base model
+Run the following command to download the base model
+```wget -q https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task```
+
+# 3. Download dataset and extract keypoints
+```python extract_keypoints.py```
+
+# 4. Train a PyTorch model on keypoints
+```python train.py```
+
+# 5. Run real-time inference
+```python realtime_test.py```
