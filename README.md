@@ -49,12 +49,12 @@ Run the following command to download the base model
 wget -q https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task
 ```
 
-## 3. Download the dataset and extract keypoints
+## 3. Download the asl alphabet dataset and extract keypoints
 ```
 python extract_keypoints.py
 ```
 
-# 4. Train a PyTorch model on keypoints
+# 4. Train a PyTorch model on keypoints (can skip if using existing weights)
 ```
 python train.py
 ```
@@ -63,3 +63,5 @@ python train.py
 ```
 python realtime_test.py
 ```
+If you're on a mac and don't want it to connect to your phone/you want to use the webcam, turn off bluetooth.  
+To quit, press the q key.
