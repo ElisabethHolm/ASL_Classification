@@ -1,4 +1,6 @@
 alphabet_dataset
+mediapipe/alphabet_dataset_mp
+mediapipe/hand_landmarker.task
 
 # Compiled source #
 ###################
