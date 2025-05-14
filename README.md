@@ -42,7 +42,7 @@ ___________
 ```
 cd mediapipe
 ```
-
+Don't skip this or the cwd gods will unleash their wrath upon you
 ## 2. Download base model
 Run the following command to download the base model
 ```
