@@ -54,12 +54,12 @@ wget -q https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_lan
 python download_dataset.py
 ```
 Note: this may take a second
-## 4. Extract keypoints from the dataset
+## 4. Extract keypoints from the dataset (can skip if using existing model)
 ```
 python extract_keypoints.py
 ```
 Note: this takes a bit, maybe go watch a youtube video and come back
-# 5. Train a PyTorch model on keypoints (can skip if using existing weights)
+# 5. Train a PyTorch model on keypoints (can skip if using existing model)
 ```
 python train.py
 ```
