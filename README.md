@@ -34,7 +34,13 @@ python preprocess_data.py
 This downloads and prepares the [ASL alphabet dataset](https://www.kaggle.com/datasets/grassknoted/asl-alphabet/data) for use with YoloV11
 
 ## 2. Train with YOLOv11
-Armando TODO, from https://docs.ultralytics.com/tasks/classify/
+
+```
+python train_yolo.py
+python evaluate.py
+```
+
+From https://docs.ultralytics.com/tasks/classify/
 
 ___________
 # MediaPipe Classifier
