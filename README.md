@@ -76,6 +76,24 @@ wget -q https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_lan
 ```
 python download_dataset.py
 ```
+This downloads and prepares the [ASL alphabet dataset 1](https://www.kaggle.com/datasets/grassknoted/asl-alphabet/data), [ASL alphabet dataset 2](https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset), and the combined version of datasets 1 and 2 for use with MediaPipe and PyTorch
+
+The resulting structure is as follows:
+```
+alphabet_datasets/
+├── dataset1/
+│   ├── A/
+│   ├── B/
+│   └── ...
+├── dataset2/
+│   ├── A/
+│   ├── B/
+│   └── ...
+└── combined/
+│   ├── A/
+│   ├── B/
+│   └── ...
+```
 Note: this takes a bit
 ## 4. Extract keypoints from the dataset (can skip if using existing model or keypoints)
 ```
