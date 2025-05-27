@@ -16,7 +16,7 @@ args = parser.parse_args()
 test_size = 0.2  # 80% train, remainder split between val (10%) and test (10%)
 batch_size = 32
 learning_rate = 1e-3
-num_epochs = 25
+num_epochs = 20
 
 class HandKeypointDataset(Dataset):
     def __init__(self, data, labels):
