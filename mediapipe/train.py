@@ -1,3 +1,4 @@
+import argparse
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -6,6 +7,11 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 import numpy as np
 import json
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--dataset', type=int, choices=[1, 2, 3], default=1,
+                    help='Specify which dataset to train on (1, 2, or 3 (combined))')
+args = parser.parse_args()
 
 test_size = 0.2  # 80% train, remainder split between val (10%) and test (10%)
 batch_size = 32
@@ -23,7 +29,18 @@ class HandKeypointDataset(Dataset):
     def __getitem__(self, idx):
         return self.data[idx], self.labels[idx]
 
-with open("keypoints_dataset.json") as f:
+# Determine which keypoints json to open
+if args["dataset"] == 1:
+    keypts_json = "keypoints_d1.json"
+    save_pth = "mp_alphabet_classifier_1.pth"
+elif args["dataset"] == 2:
+    keypts_json = "keypoints_d2.json"
+    save_pth = "mp_alphabet_classifier_2.pth"
+else:
+    keypts_json = "keypoints_combined.json"
+    save_pth = "mp_alphabet_classifier_combined.pth"
+
+with open(keypts_json) as f:
     raw = json.load(f)
 
 X = np.array(raw["data"])
@@ -44,6 +61,7 @@ train_loader = DataLoader(HandKeypointDataset(X_train, y_train), batch_size=32, 
 val_loader = DataLoader(HandKeypointDataset(X_val, y_val), batch_size=32)
 test_loader = DataLoader(HandKeypointDataset(X_test, y_test), batch_size=32)
 
+# Basic pytorch neural network that classifies ASL letters
 class ASLClassifier(nn.Module):
     def __init__(self, input_dim=63, num_classes=26):
         super().__init__()
@@ -72,7 +90,7 @@ def compute_accuracy(model, dataloader, device):
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = ASLClassifier(input_dim=X.shape[1], num_classes=len(le.classes_)).to(device)
-criterion = nn.CrossEntropyLoss()
+loss_fn = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 for epoch in range(num_epochs):
@@ -81,7 +99,7 @@ for epoch in range(num_epochs):
     for inputs, labels in train_loader:
         inputs, labels = inputs.to(device), labels.to(device)
         optimizer.zero_grad()
-        loss = criterion(model(inputs), labels)
+        loss = loss_fn(model(inputs), labels)
         loss.backward()
         optimizer.step()
         running_loss += loss.item()
@@ -94,4 +112,4 @@ for epoch in range(num_epochs):
 test_acc = compute_accuracy(model, test_loader, device)
 print(f"\nFinal Test Accuracy: {test_acc:.2f}%")
 
-torch.save(model.state_dict(), "mp_alphabet_classifier.pth")
+torch.save(model.state_dict(), save_pth)

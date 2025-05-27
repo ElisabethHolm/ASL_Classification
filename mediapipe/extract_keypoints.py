@@ -43,7 +43,7 @@ def extract_keypoints_from_image(image_path):
     return None
 
 # get keypoints from all images and save in json
-def process_dataset(dataset_dir="./alphabet_dataset_mp/", output_json="keypoints_dataset.json", max_samples=1000):
+def process_dataset(dataset_dir="./alphabet_datasets_mp/", output_json="keypoints_dataset.json", max_samples=1000):
     data, labels = [], []
     valid_labels = [chr(ord('A') + i) for i in range(26)] + ['del', 'nothing', 'space']
 
@@ -68,5 +68,8 @@ def process_dataset(dataset_dir="./alphabet_dataset_mp/", output_json="keypoints
     print(f"Saved {len(data)} samples.")
 
 if __name__ == "__main__":
+    process_dataset(dataset_dir="./alphabet_datasets_mp/dataset1", output_json="keypoints_d1.json")
 
-    process_dataset()
+    process_dataset(dataset_dir="./alphabet_datasets_mp/dataset2", output_json="keypoints_d2.json")
+
+    process_dataset(dataset_dir="./alphabet_datasets_mp/combined", output_json="keypoints_combined.json")

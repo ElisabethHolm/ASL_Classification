@@ -1,9 +1,19 @@
+import argparse
 import cv2
 import torch
 import torch.nn as nn
 import mediapipe as mp
 import numpy as np
 import json
+
+parser = argparse.ArgumentParser(
+    prog='ASLClassifier',
+    description='Real-time ASL classifier using MediaPipe and a trained PyTorch model',
+    epilog='Press q to quit the webcam stream.'
+)
+parser.add_argument('--training_data', type=int, choices=[1, 2, 3], default=1,
+                    help='Specify which training dataset/model to use (1, 2, or 3 (combined dataset))')
+args = parser.parse_args()
 
 with open("label_classes.json", "r") as f:
     label_classes = json.load(f)
@@ -24,7 +34,12 @@ class ASLClassifier(nn.Module):
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = ASLClassifier()
-model.load_state_dict(torch.load("mp_alphabet_classifier.pth", map_location=device))
+if args['training_data'] == 1:
+    model.load_state_dict(torch.load("mp_alphabet_classifier_1.pth", map_location=device))
+elif args['training_data'] == 2:
+    model.load_state_dict(torch.load("mp_alphabet_classifier_2.pth", map_location=device))
+else:
+    model.load_state_dict(torch.load("mp_alphabet_classifier_combined.pth", map_location=device))
 model.eval().to(device)
 
 mp_hands = mp.solutions.hands
