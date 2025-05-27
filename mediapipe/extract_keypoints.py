@@ -43,29 +43,43 @@ def extract_keypoints_from_image(image_path):
     return None
 
 # get keypoints from all images and save in json
-def process_dataset(dataset_dir="./alphabet_datasets_mp/", output_json="keypoints_dataset.json", max_samples=1000):
-    data, labels = [], []
+def process_dataset(dataset_dir="./alphabet_datasets_mp/", output_json="keypoints_dataset.json", save_every=500):
     valid_labels = [chr(ord('A') + i) for i in range(26)] + ['del', 'nothing', 'space']
+    
+    # Resume from existing file if it exists
+    if os.path.exists(output_json):
+        with open(output_json, "r") as f:
+            obj = json.load(f)
+            data, labels = obj["data"], obj["labels"]
+    else:
+        data, labels = [], []
+
+    sample_count = len(data)
 
     for label in sorted(os.listdir(dataset_dir)):
         if label not in valid_labels:
             continue
 
         label_path = os.path.join(dataset_dir, label)
-        count = 0
         for file in tqdm(os.listdir(label_path), desc=f"Processing {label}"):
-            if count >= max_samples:
-                break
             img_path = os.path.join(label_path, file)
+
             keypoints = extract_keypoints_from_image(img_path)
             if keypoints:
                 data.append(keypoints)
                 labels.append(label)
-                count += 1
+                sample_count += 1
 
+                # Save periodically
+                if sample_count % save_every == 0:
+                    with open(output_json, "w") as f:
+                        json.dump({"data": data, "labels": labels}, f)
+                    print(f"Checkpoint: {sample_count} samples saved.")
+
+    # Final save
     with open(output_json, "w") as f:
         json.dump({"data": data, "labels": labels}, f)
-    print(f"Saved {len(data)} samples.")
+    print(f"Final save: {len(data)} samples.")
 
 if __name__ == "__main__":
     process_dataset(dataset_dir="./alphabet_datasets_mp/dataset1", output_json="keypoints_d1.json")
