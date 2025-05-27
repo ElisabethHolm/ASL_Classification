@@ -14,8 +14,7 @@ git clone https://github.com/ElisabethHolm/ASL_Classification.git
 pip install -r requirements.txt
 ```
 
-## 3. Download Dataset
-### Get a kaggle API token
+## 3. Get a kaggle API token
 Follow these official instructions: https://www.kaggle.com/docs/api#authentication 
 
 tldr: 
@@ -31,10 +30,33 @@ _________
 python preprocess_data.py
 ```
 
-This downloads and prepares the [ASL alphabet dataset](https://www.kaggle.com/datasets/grassknoted/asl-alphabet/data) for use with YoloV11
+This downloads and prepares the [ASL alphabet dataset 1](https://www.kaggle.com/datasets/grassknoted/asl-alphabet/data), [ASL alphabet dataset 2](https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset), and the combined version of datasets 1 and 2 for use with YoloV11
+
+The resulting structure is as follows:
+```
+alphabet_datasets/
+├── dataset1/
+│   ├── train/
+│   ├── val/
+│   └── test/
+├── dataset2/
+│   ├── train/
+│   ├── val/
+│   └── test/
+└── combined/
+    ├── train/
+    ├── val/
+    └── test/
+```
 
 ## 2. Train with YOLOv11
-Armando TODO, from https://docs.ultralytics.com/tasks/classify/
+
+```
+python train_yolo.py
+python evaluate.py
+```
+
+From https://docs.ultralytics.com/tasks/classify/
 
 ___________
 # MediaPipe Classifier
