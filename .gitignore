@@ -1,7 +1,9 @@
 alphabet_dataset
 alphabet_datasets
 mediapipe/alphabet_datasets_mp
-mediapipe/hand_landmarker.task
+mediapipe/keypoints_d1.json
+mediapipe/keypoints_d2.json
+mediapipe/keypoints_combined.json
 
 # Compiled source #
 ###################
