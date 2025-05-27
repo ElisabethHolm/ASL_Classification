@@ -25,7 +25,7 @@ Make a ~/.kaggle folder and move the kaggle.json file inside the folder
 
 _________
 # YOLO Classifier
-## 1. Run preprocess_data.py
+## 1. Download the asl alphabet datasets
 ```
 python preprocess_data.py
 ```
@@ -48,6 +48,7 @@ alphabet_datasets/
     ├── val/
     └── test/
 ```
+Note: this takes a bit
 
 ## 2. Train with YOLOv11
 
@@ -71,24 +72,50 @@ Run the following command to download the base model
 wget -q https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task
 ```
 
-## 3. Download the asl alphabet dataset
+## 3. Download the asl alphabet datasets
 ```
 python download_dataset.py
 ```
-Note: this may take a second
-## 4. Extract keypoints from the dataset (can skip if using existing model)
+This downloads and prepares the [ASL alphabet dataset 1](https://www.kaggle.com/datasets/grassknoted/asl-alphabet/data), [ASL alphabet dataset 2](https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset), and the combined version of datasets 1 and 2 for use with MediaPipe and PyTorch
+
+The resulting structure is as follows:
+```
+alphabet_datasets/
+├── dataset1/
+│   ├── A/
+│   ├── B/
+│   └── ...
+├── dataset2/
+│   ├── A/
+│   ├── B/
+│   └── ...
+└── combined/
+│   ├── A/
+│   ├── B/
+│   └── ...
+```
+Note: this takes a bit
+## 4. Extract keypoints from the dataset (can skip if using existing model or keypoints)
 ```
 python extract_keypoints.py
 ```
-Note: this takes a bit, maybe go watch a youtube video and come back
+Note: this takes a while, maybe go watch a youtube video and come back
 # 5. Train a PyTorch model on keypoints (can skip if using existing model)
 ```
-python train.py
+python train.py --dataset 1
 ```
+1 = train on dataset 1  
+2 = train on dataset 2  
+3 = train on combined datasets  
 
 # 6. Run real-time inference
 ```
-python realtime_test.py
+python realtime_test.py --training_data 1
 ```
+Again:  
+1 = model trained on dataset 1  
+2 = model trained on dataset 2  
+3 = model trained on combined datasets  
+
 If you're on a mac and don't want it to connect to your phone/you want to use the webcam, turn off bluetooth.  
 To quit, press the q key.
