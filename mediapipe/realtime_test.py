@@ -34,9 +34,9 @@ class ASLClassifier(nn.Module):
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = ASLClassifier()
-if args['training_data'] == 1:
+if args.training_data == 1:
     model.load_state_dict(torch.load("mp_alphabet_classifier_1.pth", map_location=device))
-elif args['training_data'] == 2:
+elif args.training_data == 2:
     model.load_state_dict(torch.load("mp_alphabet_classifier_2.pth", map_location=device))
 else:
     model.load_state_dict(torch.load("mp_alphabet_classifier_combined.pth", map_location=device))

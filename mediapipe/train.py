@@ -30,10 +30,10 @@ class HandKeypointDataset(Dataset):
         return self.data[idx], self.labels[idx]
 
 # Determine which keypoints json to open
-if args["dataset"] == 1:
+if args.dataset == 1:
     keypts_json = "keypoints_d1.json"
     save_pth = "mp_alphabet_classifier_1.pth"
-elif args["dataset"] == 2:
+elif args.dataset == 2:
     keypts_json = "keypoints_d2.json"
     save_pth = "mp_alphabet_classifier_2.pth"
 else:
