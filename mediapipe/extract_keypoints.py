@@ -44,6 +44,11 @@ def extract_keypoints_from_image(image_path):
 
 # get keypoints from all images and save in json
 def process_dataset(dataset_dir="./alphabet_datasets_mp/", output_json="keypoints_dataset.json", save_every=500):
+    if os.path.exists(output_json):
+        print(f"Skipping {dataset_dir}: found existing {output_json}")
+        return
+    
+    print(f"Extracting keypoints for {output_json}")
     valid_labels = [chr(ord('A') + i) for i in range(26)] + ['del', 'nothing', 'space']
     
     # Resume from existing file if it exists
@@ -81,9 +86,31 @@ def process_dataset(dataset_dir="./alphabet_datasets_mp/", output_json="keypoint
         json.dump({"data": data, "labels": labels}, f)
     print(f"Final save: {len(data)} samples.")
 
+
+# merge existing jsons into a combined json
+def combine_jsons(json1_path, json2_path, combined_path):
+    if os.path.exists(combined_path):
+        print(f"Skipping combine: {combined_path} already exists.")
+        return
+
+    print("Combining JSONs...")
+    with open(json1_path, "r") as f1, open(json2_path, "r") as f2:
+        data1 = json.load(f1)
+        data2 = json.load(f2)
+
+    combined_data = {
+        "data": data1["data"] + data2["data"],
+        "labels": data1["labels"] + data2["labels"]
+    }
+
+    with open(combined_path, "w") as f:
+        json.dump(combined_data, f)
+    print(f"Combined JSON written to {combined_path}")
+
+
 if __name__ == "__main__":
     process_dataset(dataset_dir="./alphabet_datasets_mp/dataset1", output_json="keypoints_d1.json")
 
     process_dataset(dataset_dir="./alphabet_datasets_mp/dataset2", output_json="keypoints_d2.json")
 
-    process_dataset(dataset_dir="./alphabet_datasets_mp/combined", output_json="keypoints_combined.json")
+    combine_jsons("keypoints_d1.json", "keypoints_d2.json", "keypoints_combined.json")
