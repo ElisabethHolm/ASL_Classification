@@ -2,6 +2,7 @@ from ultralytics import YOLO
 from pathlib import Path
 import argparse
 import json
+import torch
 
 # Parse command line arguments
 parser = argparse.ArgumentParser()
@@ -9,22 +10,26 @@ parser.add_argument('--dataset', type=int, choices=[1, 2, 3], default=1,
                     help='Specify which dataset to train on (1, 2, or 3 (combined))')
 args = parser.parse_args()
 
+# Set device
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
+
 # Common training parameters
 COMMON_PARAMS = {
     "epochs": 20,
     "imgsz": 224,
     "batch": 32,
     "workers": 4,
-    "device": "cpu",  # Change to "cuda" if GPU available
+    "device": device,  # Use the detected device
     "pretrained": True,
     "optimizer": "auto",
     "verbose": True,
     "seed": 42
 }
 
-# Base paths
-BASE_DIR = Path("alphabet_datasets")
-RUNS_DIR = Path("runs/yolo")
+# Base paths - using absolute paths to avoid confusion
+BASE_DIR = Path(__file__).parent.parent / "alphabet_datasets"
+RUNS_DIR = Path(__file__).parent.parent / "runs/yolo"
 
 # Dataset mapping
 DATASET_MAP = {
@@ -39,8 +44,17 @@ def train_model():
     dataset_path = BASE_DIR / dataset_name
     model_path = RUNS_DIR / dataset_name / "weights" / model_name
     
+    # Verify dataset exists
+    if not dataset_path.exists():
+        raise FileNotFoundError(f"Dataset not found at {dataset_path}")
+    
     # Create output directory
     model_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    print(f"Training on dataset: {dataset_name}")
+    print(f"Dataset path: {dataset_path}")
+    print(f"Model will be saved to: {model_path}")
+    print(f"Using device: {device}")
     
     # Load pretrained model
     model = YOLO("yolo11n-cls.pt")
@@ -60,7 +74,8 @@ def train_model():
         "top5_accuracy": results.top5,
         "epochs": COMMON_PARAMS["epochs"],
         "batch_size": COMMON_PARAMS["batch"],
-        "image_size": COMMON_PARAMS["imgsz"]
+        "image_size": COMMON_PARAMS["imgsz"],
+        "device": str(device)
     }
     
     # Save results to JSON
