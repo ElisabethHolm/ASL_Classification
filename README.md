@@ -109,6 +109,7 @@ python train.py --dataset 1
 3 = train on combined datasets  
 
 # 6. Run real-time inference
+## Continuous real-time inference to play around with the model
 ```
 python realtime_test.py --training_data 1
 ```
@@ -119,3 +120,10 @@ Again:
 
 If you're on a mac and don't want it to connect to your phone/you want to use the webcam, turn off bluetooth.  
 To quit, press the q key.
+
+## Controlled real-time accuracy test
+In addition to choosing a model to test (`--training_data`), raise the `acc_test` flag. This will run a program that has you show each letter alphabetically for 5 seconds and record how many frames the program predicted correctly. Between each letter, the program stops until the user presses any key to allow time for the user to switch hand positions.
+```
+python realtime_test.py --training_data 1 --acc_test
+```
+The program will end and display the accuracies automatically after all labels have been tested.
