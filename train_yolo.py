@@ -1,6 +1,6 @@
 from ultralytics import YOLO
 #Classify models are pretrained on the ImageNet dataset.
-
+print("hii")
 # Load a pretrained model (for classification)
 model = YOLO("yolo11n-cls.pt")
 
