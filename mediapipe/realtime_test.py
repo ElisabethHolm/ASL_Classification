@@ -103,12 +103,14 @@ def run_acc_test():
 
     accuracies = dict()
     
+    # for each letter
     for i, testing_label in enumerate(label_classes):
         fps = 30
         seconds_per_label = 5
         num_correct = 0
         total_frames = fps * seconds_per_label
 
+        # run for total_frames frames
         for frame_num in range(total_frames):
             # bool - is last frame before switching to next label
             is_last_frame = (frame_num + 1 == fps * seconds_per_label)
@@ -168,9 +170,11 @@ def run_acc_test():
         # calculate accuracy of label
         accuracies[testing_label] = num_correct / total_frames
     
-    # print per-letter accuracies
+    # print per-letter and total accuracies
     print("Accuracies:")
     for letter, acc in accuracies.items(): print(f"{letter}: {acc}")
+    total_acc = np.average(accuracies.values())
+    print(f"Total: {total_acc}")
 
     # release window
     cap.release()
