@@ -22,16 +22,16 @@ RUNS_DIR = Path(__file__).parent.parent / "runs/yolo"
 
 # Dataset mapping
 DATASET_MAP = {
-    1: ("dataset1", "yolo_classifier_1.pt"),
-    2: ("dataset2", "yolo_classifier_2.pt"),
-    3: ("combined", "yolo_classifier_combined.pt")
+    1: ("dataset1", "train4"),  # Using the most recent training run
+    2: ("dataset2", "train4"),
+    3: ("combined", "train4")
 }
 
 def evaluate_model():
     # Get dataset info
-    dataset_name, model_name = DATASET_MAP[args.dataset]
+    dataset_name, train_run = DATASET_MAP[args.dataset]
     dataset_path = BASE_DIR / dataset_name
-    model_path = RUNS_DIR / dataset_name / "weights" / model_name
+    model_path = RUNS_DIR / dataset_name / train_run / "weights" / "best.pt"
     
     # Verify dataset and model exist
     if not dataset_path.exists():
