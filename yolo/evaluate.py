@@ -23,8 +23,8 @@ RUNS_DIR = Path(__file__).parent.parent / "runs/yolo"
 # Dataset mapping
 DATASET_MAP = {
     1: ("dataset1", "train4"),  # Using the most recent training run
-    2: ("dataset2", "train4"),
-    3: ("combined", "train4")
+    2: ("dataset2", "train"),   # Using the train directory for dataset2
+    3: ("combined", "train")    # Will use train directory for combined when trained
 }
 
 def evaluate_model():
