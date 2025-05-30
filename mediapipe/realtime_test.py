@@ -173,8 +173,6 @@ def run_acc_test():
     # print per-letter and total accuracies
     print("Accuracies:")
     for letter, acc in accuracies.items(): print(f"{letter}: {acc}")
-    total_acc = np.average(accuracies.values())
-    print(f"Total: {total_acc}")
 
     # release window
     cap.release()
