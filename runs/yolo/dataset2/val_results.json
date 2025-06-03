@@ -1,0 +1,7 @@
+{
+    "dataset": "dataset2",
+    "split": "val",
+    "top1_accuracy": 0.9994168877601624,
+    "top5_accuracy": 0.999910295009613,
+    "device": "cuda"
+}

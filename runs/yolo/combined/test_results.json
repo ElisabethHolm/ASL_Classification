@@ -1,0 +1,7 @@
+{
+    "dataset": "combined",
+    "split": "test",
+    "top1_accuracy": 0.999258816242218,
+    "top5_accuracy": 1.0,
+    "device": "cuda"
+}

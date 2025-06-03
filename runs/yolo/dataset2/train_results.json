@@ -1,0 +1,9 @@
+{
+    "dataset": "dataset2",
+    "top1_accuracy": 0.9994168877601624,
+    "top5_accuracy": 0.999910295009613,
+    "epochs": 20,
+    "batch_size": 32,
+    "image_size": 224,
+    "device": "cuda"
+}
