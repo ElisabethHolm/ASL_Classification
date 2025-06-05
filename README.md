@@ -52,12 +52,56 @@ Note: this takes a bit
 
 ## 2. Train with YOLOv11
 
-```
-python train_yolo.py
-python evaluate.py
+You can train the model on any of the three datasets (Dataset 1, Dataset 2, or Combined) using the following command:
+
+```bash
+python yolo/train.py --dataset <dataset_number>
 ```
 
-From https://docs.ultralytics.com/tasks/classify/
+Where:
+- `--dataset 1`: Train on Dataset 1
+- `--dataset 2`: Train on Dataset 2
+- `--dataset 3`: Train on Combined dataset (Dataset 1 + Dataset 2)
+
+The training process uses the following configuration:
+- Base model: YOLOv11n-cls (pretrained on ImageNet)
+- Epochs: 20
+- Image size: 224x224
+- Batch size: 32
+- Optimizer: Auto (default YOLO optimizer)
+
+### Evaluation
+
+After training, evaluate the model using:
+
+```bash
+python yolo/evaluate.py --dataset <dataset_number> --split <split>
+```
+
+Where:
+- `--dataset`: Same as training (1, 2, or 3)
+- `--split`: Choose between 'val' or 'test'
+
+The results will be saved in the `runs/yolo/<dataset_name>/` directory, including:
+- Training results: `train_results.json`
+- Validation results: `val_results.json`
+- Test results: `test_results.json`
+
+### Real-time Testing
+
+There are two modes for real-time testing:
+
+1. **Continuous Testing**
+```bash
+python yolo/realtime_test.py --dataset <dataset_number>
+```
+This mode shows real-time predictions as you sign letters.
+
+2. **Accuracy Testing**
+```bash
+python yolo/realtime_test.py --dataset <dataset_number> --acc_test
+```
+
 
 ___________
 # MediaPipe Classifier
